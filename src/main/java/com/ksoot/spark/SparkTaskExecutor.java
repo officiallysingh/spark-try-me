@@ -34,30 +34,21 @@ public class SparkTaskExecutor {
                 Dataframe.of("c2", LocalDate.of(2024, 6, 13), "f213"),
                 Dataframe.of("c2", LocalDate.of(2024, 6, 15), "f215")),
             Dataframe.class);
-    // +-----------+----------+-------+
-    // |customer_id|      date|feature|
-    // +-----------+----------+-------+
-    // |         c1|2024-06-05|   f105|
-    // |         c1|2024-06-06|   f106|
-    // |         c1|2024-06-07|   f107|
-    // |         c1|2024-06-10|   f110|
-    // |         c2|2024-06-12|   f212|
-    // |         c2|2024-06-13|   f213|
-    // |         c2|2024-06-15|   f215|
-    // +-----------+----------+-------+
-    originalDf.show();
+    //    originalDf.printSchema();
+    //    originalDf.show();
 
     Dataset<Row> customerMinMaxDateDf =
         originalDf
             .groupBy("customer_id")
             .agg(min("date").as("min_date"), max("date").as("max_date"));
-    customerMinMaxDateDf.show();
+    //    customerMinMaxDateDf.printSchema();
+    //    customerMinMaxDateDf.show();
 
     // Register a UDF to generate a sequence of dates
     this.sparkSession
         .udf()
         .register(
-            "dateSeq",
+            "explodeDateSeq",
             (final LocalDate start, final LocalDate end) -> {
               final long numOfDaysBetween =
                   ChronoUnit.DAYS.between(start, end) + 1; // +1 to include end date
@@ -76,13 +67,17 @@ public class SparkTaskExecutor {
                 "date",
                 functions.explode(
                     callUDF(
-                        "dateSeq",
+                        "explodeDateSeq",
                         customerMinMaxDateDf.col("min_date"),
                         customerMinMaxDateDf.col("max_date"))))
             .select("customer_id", "date");
-    customerIdDatesDf.show();
 
-    Dataset<Row> result =
+//    customerIdDatesDf.printSchema();
+//    customerIdDatesDf.show();
+//    originalDf.printSchema();
+//    originalDf.show();
+
+    final Dataset<Row> result =
         customerIdDatesDf
             .join(
                 originalDf,
@@ -94,7 +89,7 @@ public class SparkTaskExecutor {
             .select(
                 customerIdDatesDf.col("customer_id"),
                 customerIdDatesDf.col("date"),
-                originalDf.col("feature"));
+                col("feature"));
     result.show();
   }
 }

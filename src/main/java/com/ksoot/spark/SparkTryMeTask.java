@@ -40,10 +40,6 @@ public class SparkTryMeTask {
     @Override
     public void run(final ApplicationArguments args) {
       this.sparkTaskExecutor.execute();
-      //      Dataset<Row> result = this.sparkTaskExecutor.execute(this.sparkSession);
-      //      result.printSchema();
-      //      result.show();
-      //      System.out.println("Result count: " + result.count());
     }
   }
 }

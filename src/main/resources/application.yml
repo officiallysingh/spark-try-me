@@ -20,7 +20,9 @@ spring:
 logging:
   level:
     ROOT: info
-    '[org.mongodb.driver]': warn
+    '[org.apache.spark]': warn
+    '[org.sparkproject]': warn
+    '[org.apache.hadoop]': warn
 debug: false
 
 # ===================================================================
