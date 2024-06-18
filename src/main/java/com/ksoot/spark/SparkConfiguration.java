@@ -26,7 +26,6 @@ class SparkConfiguration {
         // java.base/sun.util.calendar=ALL-UNNAME")
 
         .config("spark.sql.datetime.java8API.enabled", true)
-        .config("spark.sql.analyzer.failAmbiguousSelfJoin", false)
         .getOrCreate();
   }
   // --add-exports java.base/sun.nio.ch=ALL-UNNAMED --add-exports
