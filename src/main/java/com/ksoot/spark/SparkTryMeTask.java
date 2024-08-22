@@ -1,6 +1,9 @@
 package com.ksoot.spark;
 
+import com.ksoot.spark.executor.SparkBucketizeExecutor;
+import com.ksoot.spark.executor.SparkUDFExecutor;
 import jakarta.annotation.PostConstruct;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
@@ -24,22 +27,22 @@ public class SparkTryMeTask {
   }
 
   @Bean
-  public ApplicationRunner applicationRunner(final SparkTaskExecutor sparkTaskExecutor) {
-    return new SparkPipelineRunner(sparkTaskExecutor);
+  public ApplicationRunner applicationRunner(final SparkUDFExecutor sparkUDFExecutor,
+                                             final SparkBucketizeExecutor sparkBucketizeExecutor) {
+    return new SparkPipelineRunner(sparkUDFExecutor, sparkBucketizeExecutor);
   }
 
   @Slf4j
+  @RequiredArgsConstructor
   public static class SparkPipelineRunner implements ApplicationRunner {
 
-    private final SparkTaskExecutor sparkTaskExecutor;
-
-    public SparkPipelineRunner(final SparkTaskExecutor sparkTaskExecutor) {
-      this.sparkTaskExecutor = sparkTaskExecutor;
-    }
+    private final SparkUDFExecutor sparkUDFExecutor;
+    private final SparkBucketizeExecutor sparkBucketizeExecutor;
 
     @Override
     public void run(final ApplicationArguments args) {
-      this.sparkTaskExecutor.execute();
+//      this.sparkUDFExecutor.execute();
+      this.sparkBucketizeExecutor.execute();
     }
   }
 }

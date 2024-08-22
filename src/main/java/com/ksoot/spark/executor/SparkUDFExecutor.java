@@ -1,4 +1,4 @@
-package com.ksoot.spark;
+package com.ksoot.spark.executor;
 
 import static org.apache.spark.sql.functions.*;
 
@@ -8,6 +8,8 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
+
+import com.ksoot.spark.Dataframe;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.sql.*;
@@ -17,7 +19,7 @@ import org.springframework.stereotype.Component;
 @Slf4j
 @Component
 @RequiredArgsConstructor
-public class SparkTaskExecutor {
+public class SparkUDFExecutor {
 
   private final SparkSession sparkSession;
 
