@@ -13,7 +13,7 @@ class SparkConfiguration {
   SparkSession sparkSession() {
     return SparkSession.builder()
         .appName("spark-try-me-task")
-        .master("local[*]")
+        .master("local[1]")
 
         //            .config("spark.driver.extraJavaOptions", "--add-exports
         // java.base/sun.nio.ch=ALL-UNNAMED")

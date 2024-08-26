@@ -1,5 +1,6 @@
 package com.ksoot.spark;
 
+import com.ksoot.spark.executor.ParquetWriterExecutor;
 import com.ksoot.spark.executor.SparkBucketizeExecutor;
 import com.ksoot.spark.executor.SparkUDFExecutor;
 import jakarta.annotation.PostConstruct;
@@ -28,8 +29,9 @@ public class SparkTryMeTask {
 
   @Bean
   public ApplicationRunner applicationRunner(final SparkUDFExecutor sparkUDFExecutor,
-                                             final SparkBucketizeExecutor sparkBucketizeExecutor) {
-    return new SparkPipelineRunner(sparkUDFExecutor, sparkBucketizeExecutor);
+                                             final SparkBucketizeExecutor sparkBucketizeExecutor,
+                                             final ParquetWriterExecutor parquetWriterExecutor) {
+    return new SparkPipelineRunner(sparkUDFExecutor, sparkBucketizeExecutor, parquetWriterExecutor);
   }
 
   @Slf4j
@@ -38,11 +40,13 @@ public class SparkTryMeTask {
 
     private final SparkUDFExecutor sparkUDFExecutor;
     private final SparkBucketizeExecutor sparkBucketizeExecutor;
+    final ParquetWriterExecutor parquetWriterExecutor;
 
     @Override
     public void run(final ApplicationArguments args) {
 //      this.sparkUDFExecutor.execute();
-      this.sparkBucketizeExecutor.execute();
+//      this.sparkBucketizeExecutor.execute();
+      this.parquetWriterExecutor.execute();
     }
   }
 }
