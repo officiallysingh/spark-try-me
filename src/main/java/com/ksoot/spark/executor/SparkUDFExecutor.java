@@ -2,14 +2,13 @@ package com.ksoot.spark.executor;
 
 import static org.apache.spark.sql.functions.*;
 
+import com.ksoot.spark.Dataframe;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 import java.util.stream.Stream;
-
-import com.ksoot.spark.Dataframe;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.sql.*;
@@ -74,10 +73,10 @@ public class SparkUDFExecutor {
                         customerMinMaxDateDf.col("max_date"))))
             .select("customer_id", "date");
 
-//    customerIdDatesDf.printSchema();
-//    customerIdDatesDf.show();
-//    originalDf.printSchema();
-//    originalDf.show();
+    //    customerIdDatesDf.printSchema();
+    //    customerIdDatesDf.show();
+    //    originalDf.printSchema();
+    //    originalDf.show();
 
     final Dataset<Row> result =
         customerIdDatesDf

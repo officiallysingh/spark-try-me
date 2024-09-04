@@ -28,9 +28,10 @@ public class SparkTryMeTask {
   }
 
   @Bean
-  public ApplicationRunner applicationRunner(final SparkUDFExecutor sparkUDFExecutor,
-                                             final SparkBucketizeExecutor sparkBucketizeExecutor,
-                                             final ParquetWriterExecutor parquetWriterExecutor) {
+  public ApplicationRunner applicationRunner(
+      final SparkUDFExecutor sparkUDFExecutor,
+      final SparkBucketizeExecutor sparkBucketizeExecutor,
+      final ParquetWriterExecutor parquetWriterExecutor) {
     return new SparkPipelineRunner(sparkUDFExecutor, sparkBucketizeExecutor, parquetWriterExecutor);
   }
 
@@ -44,8 +45,8 @@ public class SparkTryMeTask {
 
     @Override
     public void run(final ApplicationArguments args) {
-//      this.sparkUDFExecutor.execute();
-//      this.sparkBucketizeExecutor.execute();
+      //      this.sparkUDFExecutor.execute();
+      //      this.sparkBucketizeExecutor.execute();
       this.parquetWriterExecutor.execute();
     }
   }
