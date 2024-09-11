@@ -86,17 +86,15 @@ public class ParquetWriterExecutor {
     StructType schema =
         new StructType(
             new StructField[] {
-              DataTypes.createStructField("/identifier/patient/id", DataTypes.StringType, true),
-              DataTypes.createStructField("/attribute/patient/sex", DataTypes.StringType, true),
-              DataTypes.createStructField("/attribute/patient/age", DataTypes.IntegerType, true),
-              DataTypes.createStructField(
-                  "/attribute/patient/cholesterol", DataTypes.FloatType, true),
-              DataTypes.createStructField("/attribute/patient/dob", DataTypes.TimestampType, true),
-              DataTypes.createStructField("/attribute/patient/label", DataTypes.StringType, true),
-              DataTypes.createStructField(
-                  "/property/patient/is_diabitic", DataTypes.BooleanType, true),
-              DataTypes.createStructField("/property/patient/salary", DataTypes.DoubleType, true),
-              DataTypes.createStructField("/property/patient/pin", DataTypes.LongType, true)
+              DataTypes.createStructField("id", DataTypes.StringType, true),
+              DataTypes.createStructField("sex", DataTypes.StringType, true),
+              DataTypes.createStructField("age", DataTypes.IntegerType, true),
+              DataTypes.createStructField("cholesterol", DataTypes.FloatType, true),
+              DataTypes.createStructField("dob", DataTypes.TimestampType, true),
+              DataTypes.createStructField("label", DataTypes.StringType, true),
+              DataTypes.createStructField("is_diabitic", DataTypes.BooleanType, true),
+              DataTypes.createStructField("salary", DataTypes.DoubleType, true),
+              DataTypes.createStructField("pin", DataTypes.LongType, true)
             });
 
     List<Row> rows =
@@ -167,6 +165,6 @@ public class ParquetWriterExecutor {
 
     // Write DataFrame to Parquet
     df.coalesce(1);
-    df.write().parquet("spark-output");
+    df.write().mode(SaveMode.Overwrite).parquet("spark-output");
   }
 }

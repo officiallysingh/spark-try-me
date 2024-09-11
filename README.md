@@ -1,31 +1,3 @@
+In Run Configurations got to `Modify options` -> `Add VM options` and set value as `--add-exports java.base/sun.nio.ch=ALL-UNNAMED`
 
-
-
-Input
-+-----------+----------+-------+
-|customer_id|      date|feature|
-+-----------+----------+-------+
-|         c1|2024-06-05|   f105|
-|         c1|2024-06-06|   f106|
-|         c1|2024-06-07|   f107|
-|         c1|2024-06-10|   f110|
-|         c2|2024-06-12|   f212|
-|         c2|2024-06-13|   f213|
-|         c2|2024-06-15|   f215|
-+-----------+----------+-------+
-
-Result
-+-----------+----------+-------+
-|customer_id|      date|feature|
-+-----------+----------+-------+
-|         c1|2024-06-05|   f105|
-|         c1|2024-06-06|   f106|
-|         c1|2024-06-07|   f107|
-|         c1|2024-06-08|   null|
-|         c1|2024-06-09|   null|
-|         c1|2024-06-10|   f110|
-|         c2|2024-06-12|   f212|
-|         c2|2024-06-13|   f213|
-|         c2|2024-06-14|   null|
-|         c2|2024-06-15|   f215|
-+-----------+----------+-------+
+Also got to `Modify options` -> `Add dependencies with "provided" scope to classpath` mark checked

@@ -27,10 +27,6 @@
 		<spark.version>3.4.1</spark.version>
 		<spark.compat.version>3.4</spark.compat.version>
 
-<!--		<telos-proto.version>1.0-SNAPSHOT</telos-proto.version>-->
-<!--		<telos-builder.version>1.0-SNAPSHOT</telos-builder.version>-->
-<!--		<schema-cache-getter.version>1.0-SNAPSHOT</schema-cache-getter.version>-->
-
 		<fmt-maven-plugin.version>2.23</fmt-maven-plugin.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
 		<maven.compiler.target>${java.version}</maven.compiler.target>
@@ -63,24 +59,24 @@
 					<groupId>org.springframework.boot</groupId>
 					<artifactId>spring-boot-starter-jdbc</artifactId>
 				</exclusion>
-<!--				<exclusion>-->
-<!--					<groupId>org.springframework.boot</groupId>-->
-<!--					<artifactId>spring-boot-starter-logging</artifactId>-->
-<!--				</exclusion>-->
+				<exclusion>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-starter-logging</artifactId>
+				</exclusion>
 			</exclusions>
 		</dependency>
-<!--		<dependency>-->
-<!--			<groupId>javax.servlet</groupId>-->
-<!--			<artifactId>javax.servlet-api</artifactId>-->
-<!--			<version>3.1.0</version>-->
-<!--		</dependency>-->
+
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-log4j2</artifactId>
+		</dependency>
 
 		<!-- Spark Dependencies -->
 		<dependency>
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-core_${scala.compat.version}</artifactId>
 			<version>${spark.version}</version>
-<!--			<scope>provided</scope>-->
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -96,7 +92,7 @@
 			<groupId>org.apache.spark</groupId>
 			<artifactId>spark-sql_${scala.compat.version}</artifactId>
 			<version>${spark.version}</version>
-<!--			<scope>provided</scope>-->
+			<scope>provided</scope>
 			<exclusions>
 				<exclusion>
 					<groupId>org.slf4j</groupId>
@@ -124,23 +120,6 @@
 				</exclusion>
 			</exclusions>
 		</dependency>
-
-		<!-- TelOS dependencies -->
-<!--		<dependency>-->
-<!--			<groupId>com.telos</groupId>-->
-<!--			<artifactId>telos-proto</artifactId>-->
-<!--			<version>${telos-proto.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.telos.sdk</groupId>-->
-<!--			<artifactId>builder</artifactId>-->
-<!--			<version>${telos-builder.version}</version>-->
-<!--		</dependency>-->
-<!--		<dependency>-->
-<!--			<groupId>com.telos.sdk</groupId>-->
-<!--			<artifactId>schema-cache-getter</artifactId>-->
-<!--			<version>${schema-cache-getter.version}</version>-->
-<!--		</dependency>-->
 
 		<!-- Misc dependencies -->
 		<dependency>
