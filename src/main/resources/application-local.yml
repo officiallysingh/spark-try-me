@@ -1,8 +1,3 @@
-spring:
-#  profiles:
-#    active: ${PROFILE:local}
-  redis:
-    uri: ${REDIS_URI:localhost:6379}
 logging:
   logback:
     rollingpolicy:
@@ -21,26 +16,3 @@ debug: false
 # Application specific properties
 # Add your own application properties here
 # ===================================================================
-
-#------------------------- Spark configurations -------------------------
-data-fetcher:
-  spark:
-    master: local[*]
-    executor:
-      instances: 1
-      memory: 8g
-  mongo:
-    url: mongodb://localhost:27017
-#    feature-database: feature-repo
-#    inference-database: inference-repo
-#    label-database: label-repo
-    feature-database: feature-subset
-    inference-database: inference-subset
-    label-database: label-subset
-  arango:
-    endpoints: localhost:8529
-    database: devdb-subset
-#    database: devdb
-    username: root
-    password: admin
-    cursor-ttl: PT5M # 5 minutes, see the ISO 8601 standard for java.time.Duration String patterns
