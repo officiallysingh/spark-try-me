@@ -1,5 +1,6 @@
 package com.ksoot.spark;
 
+import com.ksoot.spark.executor.FeatureFixExecutor;
 import com.ksoot.spark.executor.ParquetWriterExecutor;
 import com.ksoot.spark.executor.SparkBucketizeExecutor;
 import com.ksoot.spark.executor.SparkUDFExecutor;
@@ -31,8 +32,10 @@ public class SparkTryMeTask {
   public ApplicationRunner applicationRunner(
       final SparkUDFExecutor sparkUDFExecutor,
       final SparkBucketizeExecutor sparkBucketizeExecutor,
-      final ParquetWriterExecutor parquetWriterExecutor) {
-    return new SparkPipelineRunner(sparkUDFExecutor, sparkBucketizeExecutor, parquetWriterExecutor);
+      final ParquetWriterExecutor parquetWriterExecutor,
+      final FeatureFixExecutor featureFixExecutor) {
+    return new SparkPipelineRunner(
+        sparkUDFExecutor, sparkBucketizeExecutor, parquetWriterExecutor, featureFixExecutor);
   }
 
   @Slf4j
@@ -41,13 +44,16 @@ public class SparkTryMeTask {
 
     private final SparkUDFExecutor sparkUDFExecutor;
     private final SparkBucketizeExecutor sparkBucketizeExecutor;
-    final ParquetWriterExecutor parquetWriterExecutor;
+    private final ParquetWriterExecutor parquetWriterExecutor;
+    private final FeatureFixExecutor featureFixExecutor;
 
     @Override
     public void run(final ApplicationArguments args) {
       //      this.sparkUDFExecutor.execute();
       //      this.sparkBucketizeExecutor.execute();
-      this.parquetWriterExecutor.execute();
+      //      this.parquetWriterExecutor.execute();
+      //      this.parquetWriterExecutor.execute();
+      this.featureFixExecutor.execute();
     }
   }
 }
