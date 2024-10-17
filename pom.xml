@@ -17,7 +17,7 @@
 
 	<properties>
 		<java.version>17</java.version>
-		<spring-boot-version>3.2.5</spring-boot-version>
+		<spring-boot.version>3.2.5</spring-boot.version>
 		<spring-cloud.version>2023.0.3</spring-cloud.version>
 		<jakarta-servlet.version>4.0.3</jakarta-servlet.version>
 		<jersey.version>2.36</jersey.version>
@@ -154,17 +154,85 @@
 					</execution>
 				</executions>
 			</plugin>
+<!--			<plugin>-->
+<!--				<groupId>org.springframework.boot</groupId>-->
+<!--				<artifactId>spring-boot-maven-plugin</artifactId>-->
+<!--				<configuration>-->
+<!--					<excludes>-->
+<!--						<exclude>-->
+<!--							<groupId>org.projectlombok</groupId>-->
+<!--							<artifactId>lombok</artifactId>-->
+<!--						</exclude>-->
+<!--					</excludes>-->
+<!--				</configuration>-->
+<!--			</plugin>-->
+			<!-- To make the jar compatible with spark-submit -->
 			<plugin>
-				<groupId>org.springframework.boot</groupId>
-				<artifactId>spring-boot-maven-plugin</artifactId>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-shade-plugin</artifactId>
 				<configuration>
-					<excludes>
-						<exclude>
-							<groupId>org.projectlombok</groupId>
-							<artifactId>lombok</artifactId>
-						</exclude>
-					</excludes>
+					<keepDependenciesWithProvidedScope>true</keepDependenciesWithProvidedScope>
+					<createDependencyReducedPom>false</createDependencyReducedPom>
+					<filters>
+						<filter>
+							<artifact>*:*</artifact>
+							<excludes>
+								<exclude>META-INF/*.SF</exclude>
+								<exclude>META-INF/*.DSA</exclude>
+								<exclude>META-INF/*.RSA</exclude>
+							</excludes>
+						</filter>
+					</filters>
 				</configuration>
+				<dependencies>
+					<dependency>
+						<groupId>org.springframework.boot</groupId>
+						<artifactId>spring-boot-maven-plugin</artifactId>
+						<version>${spring-boot.version}</version>
+					</dependency>
+				</dependencies>
+				<executions>
+					<execution>
+						<phase>package</phase>
+						<goals>
+							<goal>shade</goal>
+						</goals>
+						<configuration>
+							<transformers>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.handlers</resource>
+								</transformer>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>META-INF/spring.schemas</resource>
+								</transformer>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>
+										META-INF/spring/org.springframework.boot.autoconfigure.AutoConfiguration.imports
+									</resource>
+								</transformer>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.AppendingTransformer">
+									<resource>
+										META-INF/spring/org.springframework.boot.actuate.autoconfigure.web.ManagementContextConfiguration.imports
+									</resource>
+								</transformer>
+								<transformer
+										implementation="org.springframework.boot.maven.PropertiesMergingResourceTransformer">
+									<resource>META-INF/spring.factories</resource>
+								</transformer>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.ServicesResourceTransformer"/>
+								<transformer
+										implementation="org.apache.maven.plugins.shade.resource.ManifestResourceTransformer">
+									<mainClass>${start-class}</mainClass>
+								</transformer>
+							</transformers>
+						</configuration>
+					</execution>
+				</executions>
 			</plugin>
 		</plugins>
 	</build>
