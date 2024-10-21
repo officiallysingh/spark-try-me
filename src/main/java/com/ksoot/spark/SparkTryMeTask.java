@@ -55,7 +55,7 @@ public class SparkTryMeTask {
       this.parquetWriterExecutor.execute();
       //      this.parquetWriterExecutor.execute();
       //      this.featureFixExecutor.execute();
-      TimeUnit.MINUTES.sleep(5);
+//      TimeUnit.MINUTES.sleep(5);
     }
   }
 }

@@ -165,6 +165,6 @@ public class ParquetWriterExecutor {
 
     // Write DataFrame to Parquet
     df.coalesce(1);
-    df.write().mode(SaveMode.Append).parquet("spark-output/myoutput.parquet");
+    df.write().mode(SaveMode.Append).parquet("spark-output");
   }
 }
