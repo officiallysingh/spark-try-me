@@ -5,6 +5,7 @@ import com.ksoot.spark.executor.ParquetWriterExecutor;
 import com.ksoot.spark.executor.SparkBucketizeExecutor;
 import com.ksoot.spark.executor.SparkUDFExecutor;
 import jakarta.annotation.PostConstruct;
+import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -48,12 +49,13 @@ public class SparkTryMeTask {
     private final FeatureFixExecutor featureFixExecutor;
 
     @Override
-    public void run(final ApplicationArguments args) {
+    public void run(final ApplicationArguments args) throws InterruptedException {
       //      this.sparkUDFExecutor.execute();
       //      this.sparkBucketizeExecutor.execute();
+      this.parquetWriterExecutor.execute();
       //      this.parquetWriterExecutor.execute();
-      //      this.parquetWriterExecutor.execute();
-      this.featureFixExecutor.execute();
+      //      this.featureFixExecutor.execute();
+      TimeUnit.MINUTES.sleep(5);
     }
   }
 }

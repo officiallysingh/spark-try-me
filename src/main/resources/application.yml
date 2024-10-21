@@ -13,6 +13,9 @@
 spring:
   application:
     name: spark-try-me
+  autoconfigure:
+    exclude:
+      - org.springframework.boot.autoconfigure.gson.GsonAutoConfiguration
   main:
     log-startup-info: true
 
