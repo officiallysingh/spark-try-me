@@ -23,9 +23,9 @@
 		<jersey.version>2.36</jersey.version>
 
 		<scala.version>2.13.8</scala.version>
-		<scala.compat.version>2.13</scala.compat.version>
+		<scala.compact.version>2.13</scala.compact.version>
 		<spark.version>3.5.2</spark.version>
-		<spark.compat.version>3.5</spark.compat.version>
+		<spark.compact.version>3.5</spark.compact.version>
 
 		<fmt-maven-plugin.version>2.23</fmt-maven-plugin.version>
 		<maven.compiler.source>${java.version}</maven.compiler.source>
@@ -74,7 +74,7 @@
 		<!-- Spark Dependencies -->
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-core_${scala.compat.version}</artifactId>
+			<artifactId>spark-core_${scala.compact.version}</artifactId>
 			<version>${spark.version}</version>
 			<scope>provided</scope>
 			<exclusions>
@@ -90,7 +90,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-sql_${scala.compat.version}</artifactId>
+			<artifactId>spark-sql_${scala.compact.version}</artifactId>
 			<version>${spark.version}</version>
 			<scope>provided</scope>
 			<exclusions>
@@ -106,7 +106,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.apache.spark</groupId>
-			<artifactId>spark-mllib_${scala.compat.version}</artifactId>
+			<artifactId>spark-mllib_${scala.compact.version}</artifactId>
 			<version>${spark.version}</version>
 			<scope>provided</scope>
 			<exclusions>

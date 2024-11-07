@@ -5,7 +5,6 @@ import com.ksoot.spark.executor.ParquetWriterExecutor;
 import com.ksoot.spark.executor.SparkBucketizeExecutor;
 import com.ksoot.spark.executor.SparkUDFExecutor;
 import jakarta.annotation.PostConstruct;
-import java.util.concurrent.TimeUnit;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.ApplicationArguments;
@@ -14,6 +13,8 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
+
+import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @EnableTask
@@ -55,7 +56,7 @@ public class SparkTryMeTask {
       this.parquetWriterExecutor.execute();
       //      this.parquetWriterExecutor.execute();
       //      this.featureFixExecutor.execute();
-//      TimeUnit.MINUTES.sleep(5);
+            TimeUnit.MINUTES.sleep(5);
     }
   }
 }
