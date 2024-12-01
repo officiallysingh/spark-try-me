@@ -1,4 +1,4 @@
-package com.ksoot.spark;
+package com.ksoot.spark.conf;
 
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.cloud.task.configuration.DefaultTaskConfigurer;

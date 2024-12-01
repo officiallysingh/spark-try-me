@@ -1,4 +1,4 @@
-package com.ksoot.spark;
+package com.ksoot.spark.conf;
 
 import jakarta.validation.constraints.Size;
 import java.time.Duration;

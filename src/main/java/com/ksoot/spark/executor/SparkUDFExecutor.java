@@ -3,16 +3,12 @@ package com.ksoot.spark.executor;
 import static org.apache.spark.sql.functions.*;
 
 import com.ksoot.spark.Dataframe;
+import com.ksoot.spark.conf.UserDefinedFunctions;
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.Arrays;
-import java.util.List;
-import java.util.stream.Collectors;
-import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.spark.sql.*;
-import org.apache.spark.sql.types.DataTypes;
 import org.springframework.stereotype.Component;
 
 @Slf4j
@@ -35,48 +31,22 @@ public class SparkUDFExecutor {
                 Dataframe.of("c2", LocalDate.of(2024, 6, 13), "f213"),
                 Dataframe.of("c2", LocalDate.of(2024, 6, 15), "f215")),
             Dataframe.class);
-    //    originalDf.printSchema();
-    //    originalDf.show();
 
     Dataset<Row> customerMinMaxDateDf =
         originalDf
             .groupBy("customer_id")
             .agg(min("date").as("min_date"), max("date").as("max_date"));
-    //    customerMinMaxDateDf.printSchema();
-    //    customerMinMaxDateDf.show();
-
-    // Register a UDF to generate a sequence of dates
-    this.sparkSession
-        .udf()
-        .register(
-            "explodeDateSeq",
-            (final LocalDate start, final LocalDate end) -> {
-              final long numOfDaysBetween =
-                  ChronoUnit.DAYS.between(start, end) + 1; // +1 to include end date
-              final List<LocalDate> dateList =
-                  Stream.iterate(start, date -> date.plusDays(1))
-                      .limit(numOfDaysBetween)
-                      .collect(Collectors.toList());
-              return dateList;
-            },
-            DataTypes.createArrayType(DataTypes.DateType));
 
     // Generate the expanded dataset
     Dataset<Row> customerIdDatesDf =
         customerMinMaxDateDf
             .withColumn(
                 "date",
-                functions.explode(
-                    callUDF(
-                        "explodeDateSeq",
-                        customerMinMaxDateDf.col("min_date"),
-                        customerMinMaxDateDf.col("max_date"))))
+                UserDefinedFunctions.explodeDateSeq(
+                    customerMinMaxDateDf.col("min_date"), customerMinMaxDateDf.col("max_date")))
             .select("customer_id", "date");
 
-    //    customerIdDatesDf.printSchema();
-    //    customerIdDatesDf.show();
-    //    originalDf.printSchema();
-    //    originalDf.show();
+    customerIdDatesDf.show();
 
     final Dataset<Row> result =
         customerIdDatesDf

@@ -4,17 +4,17 @@ import com.ksoot.spark.executor.FeatureFixExecutor;
 import com.ksoot.spark.executor.ParquetWriterExecutor;
 import com.ksoot.spark.executor.SparkBucketizeExecutor;
 import com.ksoot.spark.executor.SparkUDFExecutor;
+import com.ksoot.spark.springframework.boot.autoconfigure.SparkSessionBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.spark.sql.SparkSession;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.task.configuration.EnableTask;
 import org.springframework.context.annotation.Bean;
-
-import java.util.concurrent.TimeUnit;
 
 @Slf4j
 @EnableTask
@@ -51,12 +51,16 @@ public class SparkTryMeTask {
 
     @Override
     public void run(final ApplicationArguments args) throws InterruptedException {
-      //      this.sparkUDFExecutor.execute();
+      this.sparkUDFExecutor.execute();
       //      this.sparkBucketizeExecutor.execute();
-      this.parquetWriterExecutor.execute();
+      //      this.parquetWriterExecutor.execute();
       //      this.parquetWriterExecutor.execute();
       //      this.featureFixExecutor.execute();
-            TimeUnit.MINUTES.sleep(5);
     }
   }
+
+//  @Bean
+//  public SparkSessionBuilderCustomizer enableHiveSupportCustomizer() {
+//    return SparkSession.Builder::enableHiveSupport;
+//  }
 }

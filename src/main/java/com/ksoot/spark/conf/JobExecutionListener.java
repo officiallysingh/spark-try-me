@@ -1,4 +1,4 @@
-package com.ksoot.spark;
+package com.ksoot.spark.conf;
 
 // import ai.mlhub.platform.job.common.error.JobErrorType;
 // import ai.mlhub.platform.job.common.error.JobProblem;

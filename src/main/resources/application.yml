@@ -34,3 +34,15 @@ debug: false
 # ===================================================================
 
 #------------------------- Spark configurations -------------------------
+spark:
+  app.name: ${spring.application.name}
+  master: k8s://https://kubernetes.default.svc
+  driver:
+    memory: 2g
+    cores: 2
+  executor:
+    instances: 2
+    memory: 2g
+    cores: 2
+  ui:
+    enabled: false
