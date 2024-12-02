@@ -4,11 +4,9 @@ import com.ksoot.spark.executor.FeatureFixExecutor;
 import com.ksoot.spark.executor.ParquetWriterExecutor;
 import com.ksoot.spark.executor.SparkBucketizeExecutor;
 import com.ksoot.spark.executor.SparkUDFExecutor;
-import com.ksoot.spark.springframework.boot.autoconfigure.SparkSessionBuilderCustomizer;
 import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.spark.sql.SparkSession;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.boot.SpringApplication;
@@ -51,16 +49,46 @@ public class SparkTryMeTask {
 
     @Override
     public void run(final ApplicationArguments args) throws InterruptedException {
-      this.sparkUDFExecutor.execute();
+      //      this.sparkUDFExecutor.execute();
       //      this.sparkBucketizeExecutor.execute();
-      //      this.parquetWriterExecutor.execute();
+      this.parquetWriterExecutor.execute();
       //      this.parquetWriterExecutor.execute();
       //      this.featureFixExecutor.execute();
     }
   }
 
-//  @Bean
-//  public SparkSessionBuilderCustomizer enableHiveSupportCustomizer() {
-//    return SparkSession.Builder::enableHiveSupport;
-//  }
+  //  @Bean
+  //  public SparkSessionBuilderCustomizer enableHiveSupportCustomizer() {
+  //    return SparkSession.Builder::enableHiveSupport;
+  //  }
+
+  //  @Bean
+  //  SparkConf sparkConf() {
+  //    final SparkConf sparkConf = new SparkConf();
+  //    return sparkConf;
+  //  }
+
+  //  @Bean(destroyMethod = "stop")
+  //  SparkSession sparkSession() {
+  //    SparkConf sparkConf = new SparkConf();
+  //    sparkConf.set("spark.master", "local[*]");
+  //    final SparkSession sparkSession = SparkSession.builder().config(sparkConf).getOrCreate();
+  //    return sparkSession;
+  //  }
+
+  //  @Bean
+  //  Properties sparkProperties() {
+  //    Properties sparkProperties = new Properties();
+  //    sparkProperties.put("spark.master", "local[*]");
+  //    return sparkProperties;
+  //  }
+
+  //  @Bean
+  //  @Scope(ConfigurableBeanFactory.SCOPE_PROTOTYPE)
+  //  SparkSession.Builder sparkSessionBuilder() {
+  //    SparkConf sparkConf = new SparkConf();
+  //    sparkConf.set("spark.master", "local[*]");
+  //    SparkSession.Builder builder = SparkSession.builder().config(sparkConf);
+  //    return builder;
+  //  }
 }
